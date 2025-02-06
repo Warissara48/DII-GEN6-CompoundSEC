@@ -1,3 +1,6 @@
+import GUI.EmployeeGUI;
+import GUI.ManagerGUI;
+import GUI.VisitorsGUI;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,9 +15,9 @@ public class Main{
     private JTextField roomField;
 
     private AccessCard[] accessCards = {
-            new AccessCard("MG001", Arrays.asList("Low Floor","Medium Floor","High Floor"),Arrays.asList("Room101","Room102","Room201","Room202","Room301","Room302")),
-            new AccessCard("EP001",Arrays.asList("Low Floor","Meduim Floor"),Arrays.asList("Room101","Room102","Room201","Room202")),
-            new AccessCard("VS001",Arrays.asList("Low Floor"),Arrays.asList("Room101","Room102","Meeting Room")),
+            new AccessCard("MG001", Arrays.asList("Low","Medium","High"),Arrays.asList("101","102","201","202","301","302")),
+            new AccessCard("EP001",Arrays.asList("Low","Medium"),Arrays.asList("101","102","201","202")),
+            new AccessCard("VS001",Arrays.asList("Low"),Arrays.asList("101","102","Meeting Room")),
     };
 
     private  void checkAccess(){
@@ -72,45 +75,21 @@ public class Main{
         frame.setVisible(true);
     }
 
-    public void openAccessWindow(String role){
-        frame = new JFrame("Access Control System");
-
-        JLabel rolelabel = new JLabel("Role:" + role);
-        rolelabel.setBounds(20,20,200,20);
-
-        JLabel cardIdlabel = new JLabel("Card ID:");
-        cardIdlabel.setBounds(10,10,80,25);
-        frame.add(cardIdlabel);
-
-        cardIdField = new JTextField();
-        cardIdField.setBounds(100,10,160,25);
-        frame.add(cardIdField);
-
-        JLabel floorLsbel = new JLabel("Floor:");
-        floorLsbel.setBounds(10,50,80,25);
-        frame.add(floorLsbel);
-
-        floorField = new JTextField();
-        floorField.setBounds(100,50,160,25);
-        frame.add(floorField);
-
-        JLabel roomLabel = new JLabel("Room:");
-        roomLabel.setBounds(10,90,80,25);
-        frame.add(roomLabel);
-
-        roomField = new JTextField();
-        roomField.setBounds(100,90,160,25);
-        frame.add(roomField);
-
-        JButton checkButton = new JButton("Check Access");
-        checkButton.setBounds(100,130,160,25);
-        checkButton.addActionListener(e -> checkAccess());
-        frame.add(checkButton);
-
-        frame.setSize(300, 200);
-        frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    public void openAccessWindow(String role) {
+        // เปิดหน้าต่าง GUI ที่ตรงกับ role ที่เลือก
+        switch (role) {
+            case "Manager":
+                new ManagerGUI();  // เปิดหน้าต่าง Manager
+                break;
+            case "Employee":
+                new EmployeeGUI();  // เปิดหน้าต่าง Employee
+                break;
+            case "Visitor":
+                new VisitorsGUI();  // เปิดหน้าต่าง Visitor
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid Role");
+        }
     }
 
     public static void main(String[] args) {

@@ -5,7 +5,7 @@ public class AccessCard {
     private List<String> accessFloors;
     private List<String> accessRooms;
 
-    public  AccessCard(String cardId,List<String> accessFloors,List<String> accessRooms){
+    public AccessCard(String cardId, List<String> accessFloors, List<String> accessRooms) {
         this.cardId = cardId;
         this.accessFloors = accessFloors;
         this.accessRooms = accessRooms;
