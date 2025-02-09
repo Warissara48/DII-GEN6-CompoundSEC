@@ -1,12 +1,16 @@
 package GUI;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
 public class EmployeeGUI {
     private JFrame frame;
     private JTextField cardIdField;
     private JTextField floorField;
     private JTextField roomField;
+
 
     public EmployeeGUI() {
         frame = new JFrame("Employee Access Control System");
@@ -55,6 +59,6 @@ public class EmployeeGUI {
     }
 
     private void checkAccess() {
-        // Implement the check access logic specific to Employee here
+
     }
 }

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class Main{
     private JFrame frame;
@@ -20,19 +19,19 @@ public class Main{
             new AccessCard("VS001",Arrays.asList("Low"),Arrays.asList("101","102","Meeting Room")),
     };
 
-    private  void checkAccess(){
-        String cardId = cardIdField.getText();
-        String floor = floorField.getText();
-        String room = roomField.getText();
+    public AccessCard[] getAccessCards() {
+        return accessCards;
+    }
 
+    public void checkAccess(String cardId, String floor, String room) {
         AccessCard selectedCard = null;
-        for (AccessCard card : accessCards){
-            if (card.getCardId().equals(cardId)){
+        for (AccessCard card : accessCards) {
+            if (card.getCardId().equals(cardId)) {
                 selectedCard = card;
                 break;
             }
         }
-        if (selectedCard != null){
+        if (selectedCard != null) {
             AccessControl accessControl = new FloorAccess();
             accessControl.setAccessCard(selectedCard);
             boolean accessGranted = accessControl.checkAccess(floor, room);
@@ -40,9 +39,9 @@ public class Main{
             String result = "Access " + (accessGranted ? "Granted" : "Denied");
             String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-            JOptionPane.showMessageDialog(frame, "Date and Time: " + dateTime + "\n" + result);
+            JOptionPane.showMessageDialog(null, "Date and Time: " + dateTime + "\n" + result);
         } else {
-            JOptionPane.showMessageDialog(frame, "Card ID not found!");
+            JOptionPane.showMessageDialog(null, "Card ID not found!");
         }
     }
 
@@ -79,7 +78,7 @@ public class Main{
         // เปิดหน้าต่าง GUI ที่ตรงกับ role ที่เลือก
         switch (role) {
             case "Manager":
-                new ManagerGUI();  // เปิดหน้าต่าง Manager
+                new ManagerGUI();// เปิดหน้าต่าง Manager
                 break;
             case "Employee":
                 new EmployeeGUI();  // เปิดหน้าต่าง Employee
