@@ -1,6 +1,7 @@
-package GUI;
-
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
 public class VisitorsGUI {
     private JFrame frame;
@@ -54,7 +55,37 @@ public class VisitorsGUI {
         frame.setVisible(true);
     }
 
+    private AccessCard[] accessCards = {
+            new AccessCard("MG001", Arrays.asList("Low", "Medium", "High"), Arrays.asList("Room101", "Room102", "Room201", "Room202", "Room301", "Room302")),  // Manager card
+            new AccessCard("EP001", Arrays.asList("Low", "Medium"), Arrays.asList("Room101", "Room102", "Room201", "Room202")),  // Employee card
+            new AccessCard("VS001", Arrays.asList("Low"), Arrays.asList("Meeting Room" , "Room101"))  // Visitor card
+    };
+
     private void checkAccess() {
-        // Implement the check access logic specific to Visitor here
+        String cardId = cardIdField.getText();
+        String floor = floorField.getText();
+        String room = roomField.getText();
+
+        // Find the card with the provided cardId
+        AccessCard selectedCard = null;
+        for (AccessCard card : accessCards) {
+            if (card.getCardId().equals(cardId)) {
+                selectedCard = card;
+                break;
+            }
+        }
+
+        if (selectedCard != null) {
+            AccessControl accessControl = new FloorAccess();  // Example: Check access to floor
+            accessControl.setAccessCard(selectedCard);
+            boolean accessGranted = accessControl.checkAccess(floor, room);
+
+            String result = "Access " + (accessGranted ? "Granted" : "Denied");
+            String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+            JOptionPane.showMessageDialog(frame, "Date and Time: " + dateTime + "\n" + result);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Card ID not found.!");
+        }
     }
 }

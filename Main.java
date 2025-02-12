@@ -1,75 +1,58 @@
-import GUI.EmployeeGUI;
-import GUI.ManagerGUI;
-import GUI.VisitorsGUI;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-public class Main{
+public class Main {
     private JFrame frame;
     private JTextField cardIdField;
     private JTextField floorField;
     private JTextField roomField;
 
+    // Create some sample access cards with unique cardIds
     private AccessCard[] accessCards = {
-            new AccessCard("MG001", Arrays.asList("Low","Medium","High"),Arrays.asList("101","102","201","202","301","302")),
-            new AccessCard("EP001",Arrays.asList("Low","Medium"),Arrays.asList("101","102","201","202")),
-            new AccessCard("VS001",Arrays.asList("Low"),Arrays.asList("101","102","Meeting Room")),
+            new AccessCard("MG001", Arrays.asList("Low", "Medium", "High"), Arrays.asList("Room101", "Room102", "Room201", "Room202", "Room301", "Room302")),  // Manager card
+            new AccessCard("EP001", Arrays.asList("Low", "Medium"), Arrays.asList("Room101", "Room102", "Room201", "Room202")),  // Employee card
+            new AccessCard("VS001", Arrays.asList("Low"), Arrays.asList("Meeting Room" , "Room101"))  // Visitor card
     };
 
     public AccessCard[] getAccessCards() {
         return accessCards;
     }
 
-    public void checkAccess(String cardId, String floor, String room) {
-        AccessCard selectedCard = null;
-        for (AccessCard card : accessCards) {
-            if (card.getCardId().equals(cardId)) {
-                selectedCard = card;
-                break;
-            }
-        }
-        if (selectedCard != null) {
-            AccessControl accessControl = new FloorAccess();
-            accessControl.setAccessCard(selectedCard);
-            boolean accessGranted = accessControl.checkAccess(floor, room);
 
-            String result = "Access " + (accessGranted ? "Granted" : "Denied");
-            String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-            JOptionPane.showMessageDialog(null, "Date and Time: " + dateTime + "\n" + result);
-        } else {
-            JOptionPane.showMessageDialog(null, "Card ID not found!");
-        }
-    }
-
-    public Main(){
-        JFrame frame = new JFrame("Login");
+    public Main() {
+        JFrame frame = new JFrame("Login with");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
 
-        JLabel titleLabel = new JLabel("Login with:",SwingConstants.CENTER);
-        titleLabel.setBounds(100,5,100,20);
+        JLabel titleLabel = new JLabel("Login with:", SwingConstants.CENTER);
+        titleLabel.setBounds(100, 5, 100, 20);
         frame.add(titleLabel);
 
+        // Create buttons for Manager, Employee, Visitors
         JButton managerButton = new JButton("Manager");
         JButton employeeButton = new JButton("Employee");
-        JButton visitorButton = new JButton("Visitor");
+        JButton visitorsButton = new JButton("Visitors");
 
-        managerButton.setBounds(100,30,100,30);
-        employeeButton.setBounds(100,70,100,30);
-        visitorButton.setBounds(100,110,100,30);
+        // Set positions and sizes of buttons
+        managerButton.setBounds(100, 30, 100, 30);
+        employeeButton.setBounds(100, 70, 100, 30);
+        visitorsButton.setBounds(100, 110, 100, 30);
 
+        // Add ActionListener for each button
         managerButton.addActionListener(e -> openAccessWindow("Manager"));
         employeeButton.addActionListener(e -> openAccessWindow("Employee"));
-        visitorButton.addActionListener(e -> openAccessWindow("Visitor"));
+        visitorsButton.addActionListener(e -> openAccessWindow("Visitors"));
 
+        // Add buttons to the frame
         frame.setLayout(null);
         frame.add(managerButton);
         frame.add(employeeButton);
-        frame.add(visitorButton);
+        frame.add(visitorsButton);
+
+        // Display the frame
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -81,9 +64,9 @@ public class Main{
                 new ManagerGUI();// เปิดหน้าต่าง Manager
                 break;
             case "Employee":
-                new EmployeeGUI();  // เปิดหน้าต่าง Employee
+                new EmployeeGUI(this);  // เปิดหน้าต่าง Employee
                 break;
-            case "Visitor":
+            case "Visitors":
                 new VisitorsGUI();  // เปิดหน้าต่าง Visitor
                 break;
             default:
@@ -91,7 +74,13 @@ public class Main{
         }
     }
 
+    public void checkAccess(String cardId, String floor, String room) {
+        AccessUtils.checkAccess(cardId, floor, room, accessCards);
+    }
+
+
     public static void main(String[] args) {
         new Main();
     }
+
 }

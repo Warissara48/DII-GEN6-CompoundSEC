@@ -1,17 +1,22 @@
-package GUI;
-
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
-public class ManagerGUI {
+public class EmployeeGUI {
     private JFrame frame;
     private JTextField cardIdField;
     private JTextField floorField;
     private JTextField roomField;
+    private Main mainInstance;
 
-    public ManagerGUI() {
-        frame = new JFrame("Manager Access Control System");
 
-        JLabel roleLabel = new JLabel("Role: Manager");
+    public EmployeeGUI(Main mainInstance) {
+        this.mainInstance = mainInstance;
+
+        frame = new JFrame("Employee Access Control System");
+
+        JLabel roleLabel = new JLabel("Role: Employee");
         roleLabel.setBounds(20, 20, 200, 20);
 
         // Card ID Field
@@ -55,6 +60,10 @@ public class ManagerGUI {
     }
 
     private void checkAccess() {
-        // Implement the check access logic specific to Manager here
+        String cardId = cardIdField.getText();
+        String floor = floorField.getText();
+        String room = roomField.getText();
+        AccessUtils.checkAccess(cardId, floor, room, mainInstance.getAccessCards());
     }
+
 }
