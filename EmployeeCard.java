@@ -3,7 +3,7 @@ import Strategy.EverydayAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
 
-class EmployeeCard extends Card {
+class EmployeeCard extends Card {  //Inheritance
     private AccessStrategy accessStrategy;
 
     public EmployeeCard(String username, String password) {
