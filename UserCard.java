@@ -1,9 +1,23 @@
+import Strategy.AccessStrategy;
+import Strategy.VIPAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
 
 class UserCard extends Card {
+    private AccessStrategy accessStrategy;
+
+
     public UserCard(String username, String password) {
         super(username, password);
+        this.accessStrategy = new VIPAccessStrategy();
+    }
+
+    public void setAccessStrategy(AccessStrategy strategy) {
+        this.accessStrategy = strategy;
+    }
+
+    public boolean requestAccess() {
+        return accessStrategy != null && accessStrategy.canAccess();
     }
 
     @Override
@@ -49,8 +63,7 @@ class UserCard extends Card {
     }
 
     private void showAuditLog() {
-        String logContent = getLog(); // Get the audit log content
-        JTextArea logArea = new JTextArea(logContent);
+        JTextArea logArea = new JTextArea(getAuditLog());
         logArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(logArea);
 
@@ -59,6 +72,7 @@ class UserCard extends Card {
         logFrame.add(scrollPane);
         logFrame.setVisible(true);
     }
+
 }
 
 

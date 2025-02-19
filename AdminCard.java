@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AdminCard extends Card {
-    private static List<UserCard> users = new ArrayList<>(); // List ของ NormalUser
+    private static List<UserCard> users = new ArrayList<>(); // List ของ User
 
     public AdminCard(String username, String password) {
         super(username, password);
@@ -87,8 +87,7 @@ class AdminCard extends Card {
     }
 
     private void showAuditLog() {
-        String logContent = getLog(); // Get the audit log content
-        JTextArea logArea = new JTextArea(logContent);
+        JTextArea logArea = new JTextArea(getAuditLog());
         logArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(logArea);
 

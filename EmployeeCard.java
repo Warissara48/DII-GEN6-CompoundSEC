@@ -1,9 +1,15 @@
+import Strategy.AccessStrategy;
+import Strategy.WeekdayAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
 
 class EmployeeCard extends Card{
+    private AccessStrategy accessStrategy;
+
+
     public EmployeeCard(String username, String password) {
         super(username, password);
+        this.accessStrategy = new WeekdayAccessStrategy();
     }
 
     @Override
@@ -51,8 +57,7 @@ class EmployeeCard extends Card{
     }
 
     private void showAuditLog() {
-        String logContent = getLog(); // Get the audit log content
-        JTextArea logArea = new JTextArea(logContent);
+        JTextArea logArea = new JTextArea(getAuditLog());
         logArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(logArea);
 
@@ -61,5 +66,6 @@ class EmployeeCard extends Card{
         logFrame.add(scrollPane);
         logFrame.setVisible(true);
     }
+
 }
 

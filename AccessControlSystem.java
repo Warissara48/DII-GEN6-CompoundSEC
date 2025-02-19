@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccessControlSystem {
-    private static Card[] users = {
+    private static Card[] users = {  // upcasting
             new UserCard("Bom", "pass123"),
             new AdminCard("Lis", "admin123"),
             new EmployeeCard("Vee","em123")
