@@ -21,7 +21,7 @@ class AdminCard extends Card {
         JButton lowFloorButton = new JButton("Low Floor");
         JButton mediumFloorButton = new JButton("Medium Floor");
         JButton highFloorButton = new JButton("High Floor");
-        JButton addCardButton = new JButton("Add Card");
+        JButton addCardButton = new JButton("Add Card");  // Ues Case Diagram
         JButton withdrawCardButton = new JButton("Withdraw Card");
         JButton auditLogButton = new JButton("Audit Log");
         JButton backButton = new JButton("Back");
