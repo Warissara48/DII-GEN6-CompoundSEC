@@ -5,7 +5,9 @@ public class AccessLog { //strategy pattern
     private static volatile AccessLog instance;
     private List<String> logs = new ArrayList<>();
 
-    private AccessLog() {}
+    private AccessLog() {
+
+    }
 
     public static AccessLog getInstance() {
         if (instance == null) {
