@@ -1,13 +1,21 @@
+import Observer.AccessMonitor;
+import Observer.AdminNotifier;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 abstract class Card {  //Abstract Class
     private String username;  //Data Hiding
     private String password;
+    private int failedAttempts = 0; // ตัวแปรนับจำนวนการใส่รหัสผิด
+
 
     public Card(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Card(String username) {
+        this.username = username;
     }
 
     public String getUsername() {
@@ -15,7 +23,24 @@ abstract class Card {  //Abstract Class
     }
 
     protected boolean authenticate(String password) {
-        return this.password.equals(password);
+        if (this.password.equals(password)) {
+            failedAttempts = 0; // รีเซ็ตเมื่อใส่รหัสถูก
+            return true;
+        } else {
+            failedAttempts++;
+            if (failedAttempts == 3) {
+                // แจ้งเตือน Admin เมื่อใส่รหัสผิด 3 ครั้ง
+                notifyAdmin("Incorrect password entered 3 times for user: " + username);
+            }
+            return false;
+        }
+    }
+
+    private void notifyAdmin(String message) {
+        AccessMonitor monitor = new AccessMonitor();
+        AdminNotifier adminNotifier = new AdminNotifier();
+        monitor.addObserver(adminNotifier);
+        monitor.notifyObservers(message);
     }
 
     public abstract void accessSystem();

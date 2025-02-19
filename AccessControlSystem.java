@@ -1,5 +1,8 @@
+import Observer.AccessMonitor;
+import Observer.AdminNotifier;
+import Strategy.EverydayAccessStrategy;
+import Strategy.WeekdayAccessStrategy;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,8 +10,22 @@ public class AccessControlSystem {
     private static Card[] users = {  // upcasting
             new UserCard("Bom", "pass123"),
             new AdminCard("Lis", "admin123"),
-            new EmployeeCard("Vee","em123")
+            new EmployeeCard("Vee", "em123")
     };
+
+    private static AccessMonitor accessMonitor = new AccessMonitor();  // Create an instance of AccessMonitor
+
+    static {  // ตั้งค่า AccessStrategy ให้กับ UserCard และ EmployeeCard ตอนเริ่มระบบ
+        accessMonitor.addObserver(new AdminNotifier());  // Notify admin of access events
+
+        for (Card user : users) {
+            if (user instanceof UserCard) {
+                ((UserCard) user).setAccessStrategy(new WeekdayAccessStrategy());
+            } else if (user instanceof EmployeeCard) {
+                ((EmployeeCard) user).setAccessStrategy(new EverydayAccessStrategy());
+            }
+        }
+    }
 
     public static void login() {
         JFrame frame = new JFrame("Access Control System");
@@ -53,12 +70,27 @@ public class AccessControlSystem {
 
                 for (Card user : users) {
                     if (user.getUsername().equals(username) && user.authenticate(password)) {
-                        user.accessSystem();
-                        user.logAccess("Logged in");
+                        accessMonitor.notifyObservers(username + " logged in successfully.");
+                        // ตรวจสอบสิทธิ์ก่อนให้เข้าระบบ
+                        if (user instanceof UserCard) {
+                            if (!((UserCard) user).requestAccess()) {
+                                JOptionPane.showMessageDialog(null, "Access Denied (Weekdays Only)!");
+                                return;
+                            }
+                        } else if (user instanceof EmployeeCard) {
+                            if (!((EmployeeCard) user).requestAccess()) {
+                                JOptionPane.showMessageDialog(null, "Access Denied!");
+                                return;
+                            }
+                        }
+
+                        user.accessSystem(); // Dynamic Late Binding
+                        user.logAccess("Logged in"); // Dynamic Late Binding ( JVM จะเลือกเมธอด logAccess() ตามประเภทของ user ตอน Runtime )
                         return;
                     }
                 }
                 JOptionPane.showMessageDialog(null, "Invalid credentials!");
+                accessMonitor.notifyObservers("Failed login attempt for username: " + username);  // Notify on failed login
             }
         });
     }
