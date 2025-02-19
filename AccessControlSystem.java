@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AccessControlSystem {
+public class AccessControlSystem { //Class Visibility ที่กำหนดเป็น public ให้สามารถเข้าถึงได้จากทุกที่
     private static Card[] users = {  // upcasting
             new UserCard("Bom", "pass123"),
             new AdminCard("Lis", "admin123"),
