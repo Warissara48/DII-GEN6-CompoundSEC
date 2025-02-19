@@ -23,5 +23,6 @@ public class AdminNotifier implements AccessObserver {
         alertFrame.add(panel);
         alertFrame.setLocationRelativeTo(null); // ให้หน้าต่างแสดงตรงกลางของจอ
         alertFrame.setVisible(true);
+        
     }
 }
