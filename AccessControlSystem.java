@@ -83,7 +83,6 @@ public class AccessControlSystem {
                                 return;
                             }
                         }
-
                         user.accessSystem(); // Dynamic Late Binding
                         user.logAccess("Logged in"); // Dynamic Late Binding ( JVM จะเลือกเมธอด logAccess() ตามประเภทของ user ตอน Runtime )
                         return;
