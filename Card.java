@@ -3,8 +3,8 @@ import Observer.AdminNotifier;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-abstract class Card {  //Abstract Class
-    private String username;  //Data Hiding
+abstract class Card {  // Abstract Class
+    private String username;  // Data Hiding
     private String password;
     private int failedAttempts = 0; // ตัวแปรนับจำนวนการใส่รหัสผิด
 
