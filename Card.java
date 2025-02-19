@@ -25,9 +25,11 @@ abstract class Card {  //Abstract Class
     protected boolean authenticate(String password) {
         if (this.password.equals(password)) {
             failedAttempts = 0; // รีเซ็ตเมื่อใส่รหัสถูก
+            logAccess("Access granted for user: " + username); // บันทึกเมื่อเข้าถึงสำเร็จ
             return true;
         } else {
             failedAttempts++;
+            logAccess("Failed login attempt for user: " + username);
             if (failedAttempts == 3) {
                 // แจ้งเตือน Admin เมื่อใส่รหัสผิด 3 ครั้ง
                 notifyAdmin("Incorrect password entered 3 times for user: " + username);
