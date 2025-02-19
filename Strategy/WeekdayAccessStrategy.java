@@ -6,6 +6,7 @@ public class WeekdayAccessStrategy implements AccessStrategy {
     public boolean canAccess() {
         LocalDateTime now = LocalDateTime.now();
         return now.getDayOfWeek().getValue() <= 5; // Monday to Friday
+        
     }
 }
 
