@@ -49,9 +49,8 @@ abstract class Card {  // Abstract Class
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String timestamp = now.format(formatter);
-        // กำหนดขนาดคอลัมน์
+
         int colWidth1 = 20, colWidth2 = 40, colWidth3 = 19;
-        // เติมช่องว่างให้ข้อมูลแต่ละช่อง
         String col1 = String.format("%-" + colWidth1 + "s", username);
         String col2 = String.format("%-" + colWidth2 + "s", action);
         String col3 = String.format("%-" + colWidth3 + "s", timestamp);

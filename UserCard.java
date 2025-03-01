@@ -2,7 +2,6 @@ import Strategy.AccessStrategy;
 import Strategy.WeekdayAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 class UserCard extends Card {
     private AccessStrategy accessStrategy;

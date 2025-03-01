@@ -2,7 +2,6 @@ import Strategy.AccessStrategy;
 import Strategy.EverydayAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 class EmployeeCard extends Card {  //Inheritance
     private AccessStrategy accessStrategy;

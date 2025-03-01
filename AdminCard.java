@@ -21,14 +21,16 @@ class AdminCard extends Card {
         JButton lowFloorButton = new JButton("Low Floor");
         JButton mediumFloorButton = new JButton("Medium Floor");
         JButton highFloorButton = new JButton("High Floor");
+        JButton editCardButton = new JButton("Modify Card");
         JButton addCardButton = new JButton("Add Card");  // Use Case Diagram
-        JButton withdrawCardButton = new JButton("Withdraw Card");
+        JButton withdrawCardButton = new JButton("Revoke Card");
         JButton auditLogButton = new JButton("View Log");
         JButton backButton = new JButton("Back");
 
         panel.add(lowFloorButton);
         panel.add(mediumFloorButton);
         panel.add(highFloorButton);
+        panel.add(editCardButton);
         panel.add(addCardButton);
         panel.add(withdrawCardButton);
         panel.add(auditLogButton);
@@ -37,10 +39,11 @@ class AdminCard extends Card {
         lowFloorButton.addActionListener(e -> showRoomSelection("Low Floor"));
         mediumFloorButton.addActionListener(e -> showRoomSelection("Medium Floor"));
         highFloorButton.addActionListener(e -> showRoomSelection("High Floor"));
-        addCardButton.addActionListener(e -> promptForCardDetails()); // Add Card functionality
-        withdrawCardButton.addActionListener(e -> promptForWithdrawCard()); // Withdraw Card functionality
+        editCardButton.addActionListener(e -> promptForModifyAccess());
+        addCardButton.addActionListener(e -> promptForCardDetails());
+        withdrawCardButton.addActionListener(e -> promptForRevoke());
         auditLogButton.addActionListener(e -> showAuditLog());
-        backButton.addActionListener(e -> adminFrame.dispose()); // Close the window and go back
+        backButton.addActionListener(e -> adminFrame.dispose());
 
         adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         adminFrame.setVisible(true);
@@ -98,7 +101,50 @@ class AdminCard extends Card {
         logFrame.setVisible(true);
     }
 
-    // Function to Add Card
+    private void promptForModifyAccess() {
+        String[] userNames = {"Bom", "Vee"};
+        String selectedUser = (String) JOptionPane.showInputDialog(null, "Select user to modify access",
+                "Modify Access Rights", JOptionPane.PLAIN_MESSAGE, null, userNames, userNames[0]);
+
+        // เลือกชั้นและห้องที่ต้องการเพิ่มสิทธิ์
+        String[] floors = {"Low Floor", "Medium Floor", "High Floor"};
+        String selectedFloor = (String) JOptionPane.showInputDialog(null,
+                "Select floor to grant access",
+                "Modify Card Access",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                floors,
+                floors[0]);
+
+        if (selectedFloor == null)
+            return;
+
+        String[] rooms;
+        if (selectedFloor.equals("Low Floor")) {
+            rooms = new String[]{"Room 1", "Room 2"};
+        } else if (selectedFloor.equals("Medium Floor")) {
+            rooms = new String[]{"Room 1", "Room 2", "Meeting Room"};
+        } else {
+            rooms = new String[]{"Room 1", "Room 2"};
+        }
+
+        String selectedRoom = (String) JOptionPane.showInputDialog(null,
+                "Select room to grant access",
+                "Modify Card Access",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                rooms,
+                rooms[0]);
+
+        if (selectedRoom == null)
+            return;
+
+        logAccess("Updated "+ selectedUser + " access to " + selectedFloor + " " + selectedRoom);
+        JOptionPane.showMessageDialog(null, selectedUser + " now has access to " + selectedFloor + " " + selectedRoom);
+    }
+
+
+    //Add Card
     private void promptForCardDetails() {
         JTextField nameField = new JTextField(10);
         JTextField floorField = new JTextField(10);
@@ -128,22 +174,22 @@ class AdminCard extends Card {
         }
     }
 
-    // Function to Withdraw Card
-    private void promptForWithdrawCard() {
+    //Revoke Card
+    private void promptForRevoke() {
         if (users.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No cards to withdraw.");
+            JOptionPane.showMessageDialog(null, "No cards to revoke.");
             return;
         }
 
         String[] userNames = users.stream().map(Card::getUsername).toArray(String[]::new);
-        String selectedUser = (String) JOptionPane.showInputDialog(null, "Select user to withdraw card",
-                "Withdraw Card", JOptionPane.PLAIN_MESSAGE,
+        String selectedUser = (String) JOptionPane.showInputDialog(null, "Select user to revoke card",
+                "Revoke Card", JOptionPane.PLAIN_MESSAGE,
                 null, userNames, userNames[0]);
 
         if (selectedUser != null) {
             users.removeIf(user -> user.getUsername().equals(selectedUser)); // Remove user from list
-            logAccess("Withdraw card for " + selectedUser);
-            JOptionPane.showMessageDialog(null, "Card for " + selectedUser + " has been withdrawn.");
+            logAccess("Revoke card for " + selectedUser);
+            JOptionPane.showMessageDialog(null, "Card for " + selectedUser + " has been revoke.");
         }
     }
 }
