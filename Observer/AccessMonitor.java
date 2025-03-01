@@ -12,7 +12,6 @@ public class AccessMonitor {
     public void notifyObservers(String message) {
         for (AccessObserver observer : observers) {
             observer.update(message);
-
         }
     }
 }

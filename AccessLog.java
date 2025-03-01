@@ -6,7 +6,6 @@ public class AccessLog { //strategy pattern
     private List<String> logs = new ArrayList<>();
 
     private AccessLog() {
-
     }
 
     public static AccessLog getInstance() {

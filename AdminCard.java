@@ -73,7 +73,6 @@ class AdminCard extends Card {
     }
 
     private void promptForPassword(String floor, String room) {
-        // Since Admin has access to all rooms, no need to check accessibility
         JPasswordField passwordField = new JPasswordField(10);
         int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter password to access " + room, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 

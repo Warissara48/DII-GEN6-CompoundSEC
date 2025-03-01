@@ -2,6 +2,7 @@ import Strategy.AccessStrategy;
 import Strategy.WeekdayAccessStrategy;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 class UserCard extends Card {
     private AccessStrategy accessStrategy;
@@ -25,26 +26,22 @@ class UserCard extends Card {
         userFrame.setSize(300, 300);
         JPanel panel = new JPanel();
         userFrame.add(panel);
-        panel.setLayout(new GridLayout(5, 1));
+        panel.setLayout(new GridLayout(4, 1));
 
         JButton lowFloorButton = new JButton("Low Floor");
         JButton mediumFloorButton = new JButton("Medium Floor");
         JButton highFloorButton = new JButton("High Floor");
-        JButton auditLogButton = new JButton("Audit Log");
         JButton backButton = new JButton("Back");
 
         panel.add(lowFloorButton);
         panel.add(mediumFloorButton);
         panel.add(highFloorButton);
-        panel.add(auditLogButton);
         panel.add(backButton);
 
         // Action listeners for selecting the floor
         lowFloorButton.addActionListener(e -> showRoomSelection("Low Floor"));
         mediumFloorButton.addActionListener(e -> showRoomSelection("Medium Floor"));
         highFloorButton.addActionListener(e -> showRoomSelection("High Floor"));
-
-        auditLogButton.addActionListener(e -> showAuditLog());
         backButton.addActionListener(e -> userFrame.dispose()); // Close window and go back
 
         userFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +83,7 @@ class UserCard extends Card {
             if (option == JOptionPane.OK_OPTION) {
                 String enteredPassword = new String(passwordField.getPassword());
                 if (authenticate(enteredPassword)) {
-                    logAccess("Accessed " + room);
+                    logAccess("Accessed " + floor + " "  + room);
                     JOptionPane.showMessageDialog(null, "Access granted to " + room);
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid password. Access denied.");
@@ -98,24 +95,12 @@ class UserCard extends Card {
     }
 
     private boolean isRoomAccessible(String floor, String room) {
-        // Check for accessible rooms on each floor
         if (floor.equals("Low Floor") && (room.equals("Room 1") || room.equals("Room 2"))) {
             return true;
-        } else if (floor.equals("Medium Floor") && room.equals("Meeting Room")) {
+        } else if (floor.equals("Medium Floor") && room.equals("Room 1")) {
             return true;
         } else {
             return false; // All other combinations are not accessible
         }
-    }
-
-    private void showAuditLog() {
-        JTextArea logArea = new JTextArea(getAuditLog());
-        logArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(logArea);
-
-        JFrame logFrame = new JFrame("Audit Log");
-        logFrame.setSize(400, 300);
-        logFrame.add(scrollPane);
-        logFrame.setVisible(true);
     }
 }

@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 public class AccessControlSystem { //Class Visibility ที่กำหนดเป็น public ให้สามารถเข้าถึงได้จากทุกที่
     private static Card[] users = {  //upcasting
-            new UserCard("Bom", "pass123"),
-            new AdminCard("Lis", "admin123"),
+            new UserCard("Bom", "672110244"),
+            new AdminCard("Lis", "ad123"),
             new EmployeeCard("Vee", "em123")
     };
 
