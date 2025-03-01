@@ -27,7 +27,6 @@ abstract class Card {  // Abstract Class
     protected boolean authenticate(String password) {
         if (this.password.equals(password)) {
             failedAttempts = 0; // รีเซ็ตเมื่อใส่รหัสถูก
-            logAccess("Access granted for user: " + username);
             return true;
         } else {
             failedAttempts++;

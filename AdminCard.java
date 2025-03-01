@@ -79,7 +79,7 @@ class AdminCard extends Card {
         if (option == JOptionPane.OK_OPTION) {
             String enteredPassword = new String(passwordField.getPassword());
             if (authenticate(enteredPassword)) {
-                logAccess("Accessed " + room);
+                logAccess("Accessed granted to " + floor + " " + room);
                 JOptionPane.showMessageDialog(null, "Access granted to " + room);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid password. Access denied.");

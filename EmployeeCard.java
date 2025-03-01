@@ -83,13 +83,14 @@ class EmployeeCard extends Card {  //Inheritance
             if (option == JOptionPane.OK_OPTION) {
                 String enteredPassword = new String(passwordField.getPassword());
                 if (authenticate(enteredPassword)) {
-                    logAccess("Accessed " + floor + " " + room);
+                    logAccess("Accessed granted to " + floor + " " + room);
                     JOptionPane.showMessageDialog(null, "Access granted to "  + room);
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid password. Access denied.");
                 }
             }
         } else {
+            logAccess("Accessed denied to " + floor + " " + room);
             JOptionPane.showMessageDialog(null, "You do not have permission to access " + room + " on the " + floor + ".");
         }
     }
