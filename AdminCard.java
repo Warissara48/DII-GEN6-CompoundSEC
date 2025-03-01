@@ -23,7 +23,7 @@ class AdminCard extends Card {
         JButton highFloorButton = new JButton("High Floor");
         JButton addCardButton = new JButton("Add Card");  // Use Case Diagram
         JButton withdrawCardButton = new JButton("Withdraw Card");
-        JButton auditLogButton = new JButton("Audit Log");
+        JButton auditLogButton = new JButton("View Log");
         JButton backButton = new JButton("Back");
 
         panel.add(lowFloorButton);
@@ -142,6 +142,7 @@ class AdminCard extends Card {
 
         if (selectedUser != null) {
             users.removeIf(user -> user.getUsername().equals(selectedUser)); // Remove user from list
+            logAccess("Withdraw card");
             JOptionPane.showMessageDialog(null, "Card for " + selectedUser + " has been withdrawn.");
         }
     }
