@@ -142,7 +142,7 @@ class AdminCard extends Card {
 
         if (selectedUser != null) {
             users.removeIf(user -> user.getUsername().equals(selectedUser)); // Remove user from list
-            logAccess("Withdraw card");
+            logAccess("Withdraw card for " + selectedUser);
             JOptionPane.showMessageDialog(null, "Card for " + selectedUser + " has been withdrawn.");
         }
     }
