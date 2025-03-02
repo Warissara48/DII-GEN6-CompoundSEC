@@ -16,7 +16,7 @@ class AdminCard extends Card {
         adminFrame.setSize(300, 400);
         JPanel panel = new JPanel();
         adminFrame.add(panel);
-        panel.setLayout(new GridLayout(6, 1));
+        panel.setLayout(new GridLayout(4, 1));
 
         JButton lowFloorButton = new JButton("Low Floor");
         JButton mediumFloorButton = new JButton("Medium Floor");
