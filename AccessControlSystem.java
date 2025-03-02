@@ -13,10 +13,10 @@ public class AccessControlSystem { //Class Visibility ที่กำหนด�
             new EmployeeCard("Vee", "em123")
     };
 
-    private static AccessMonitor accessMonitor = new AccessMonitor();  // Create an instance of AccessMonitor
+    private static AccessMonitor accessMonitor = new AccessMonitor();
 
-    static {  // ตั้งค่า AccessStrategy ให้กับ UserCard และ EmployeeCard ตอนเริ่มระบบ
-        accessMonitor.addObserver(new AdminNotifier());  // Notify admin of access events
+    static {
+        accessMonitor.addObserver(new AdminNotifier());
 
         for (Card user : users) {
             if (user instanceof UserCard) {
@@ -71,7 +71,6 @@ public class AccessControlSystem { //Class Visibility ที่กำหนด�
                 for (Card user : users) {
                     if (user.getUsername().equals(username) && user.authenticate(password)) {
                         accessMonitor.notifyObservers(username + " logged in successfully.");
-                        // ตรวจสอบสิทธิ์ก่อนให้เข้าระบบ
                         if (user instanceof UserCard) {
                             if (!((UserCard) user).requestAccess()) {
                                 JOptionPane.showMessageDialog(null, "Access Denied (Weekdays Only)!");
@@ -89,7 +88,7 @@ public class AccessControlSystem { //Class Visibility ที่กำหนด�
                     }
                 }
                 JOptionPane.showMessageDialog(null, "Invalid credentials!");
-                accessMonitor.notifyObservers("Failed login attempt for username: " + username);  // Notify on failed login
+                accessMonitor.notifyObservers("Failed login attempt for username: " + username);
             }
         });
     }

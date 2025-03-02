@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AdminCard extends Card {
-    private static List<UserCard> users = new ArrayList<>(); // List of User Cards
+    private static List<UserCard> users = new ArrayList<>();
 
     public AdminCard(String username, String password) {
         super(username, password);
@@ -41,7 +41,7 @@ class AdminCard extends Card {
         highFloorButton.addActionListener(e -> showRoomSelection("High Floor"));
         editCardButton.addActionListener(e -> promptForModifyAccess());
         addCardButton.addActionListener(e -> promptForCardDetails());
-        withdrawCardButton.addActionListener(e -> promptForRevoke());
+        withdrawCardButton.addActionListener(e -> promptForRevokeCard());
         auditLogButton.addActionListener(e -> showAuditLog());
         backButton.addActionListener(e -> adminFrame.dispose());
 
@@ -52,7 +52,6 @@ class AdminCard extends Card {
     private void showRoomSelection(String floor) {
         String[] rooms = new String[]{};
 
-        // Define all rooms per floor (Admin has access to all)
         if (floor.equals("Low Floor")) {
             rooms = new String[]{"Room 1", "Room 2"};
         } else if (floor.equals("Medium Floor")) {
@@ -61,7 +60,6 @@ class AdminCard extends Card {
             rooms = new String[]{"Room 1", "Room 2"};
         }
 
-        // Show the room selection dialog with all rooms listed
         String room = (String) JOptionPane.showInputDialog(null,
                 "Select a room in " + floor,
                 "Room Selection",
@@ -143,8 +141,6 @@ class AdminCard extends Card {
         JOptionPane.showMessageDialog(null, selectedUser + " now has access to " + selectedFloor + " " + selectedRoom);
     }
 
-
-    //Add Card
     private void promptForCardDetails() {
         JTextField nameField = new JTextField(10);
         JTextField floorField = new JTextField(10);
@@ -165,7 +161,6 @@ class AdminCard extends Card {
             String floor = floorField.getText();
             String room = roomField.getText();
 
-            // Add card to a new user
             UserCard newUser = new UserCard(name, "defaultPassword"); // Default password for new user
             users.add(newUser);
             newUser.logAccess("Added card with access to floor: " + floor + ", room: " + room);
@@ -174,8 +169,7 @@ class AdminCard extends Card {
         }
     }
 
-    //Revoke Card
-    private void promptForRevoke() {
+    private void promptForRevokeCard() {
         if (users.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No cards to revoke.");
             return;

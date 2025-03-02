@@ -37,7 +37,6 @@ class UserCard extends Card {
         panel.add(highFloorButton);
         panel.add(backButton);
 
-        // Action listeners for selecting the floor
         lowFloorButton.addActionListener(e -> showRoomSelection("Low Floor"));
         mediumFloorButton.addActionListener(e -> showRoomSelection("Medium Floor"));
         highFloorButton.addActionListener(e -> showRoomSelection("High Floor"));
@@ -50,7 +49,6 @@ class UserCard extends Card {
     private void showRoomSelection(String floor) {
         String[] rooms = new String[]{};
 
-        // Define all rooms per floor
         if (floor.equals("Low Floor")) {
             rooms = new String[]{"Room 1", "Room 2"};
         } else if (floor.equals("Medium Floor")) {
@@ -59,7 +57,6 @@ class UserCard extends Card {
             rooms = new String[]{"Room 1", "Room 2"};
         }
 
-        // Show the room selection dialog with all rooms listed
         String room = (String) JOptionPane.showInputDialog(null,
                 "Select a room in " + floor,
                 "Room Selection",
@@ -100,7 +97,7 @@ class UserCard extends Card {
         } else if (floor.equals("Medium Floor") && room.equals("Room 1")) {
             return true;
         } else {
-            return false; // All other combinations are not accessible
+            return false;
         }
     }
 }

@@ -37,11 +37,10 @@ class EmployeeCard extends Card {  //Inheritance
         panel.add(highFloorButton);
         panel.add(backButton);
 
-        // Action listeners for selecting the floor
         lowFloorButton.addActionListener(e -> showRoomSelection("Low Floor"));
         mediumFloorButton.addActionListener(e -> showRoomSelection("Medium Floor"));
         highFloorButton.addActionListener(e -> showRoomSelection("High Floor"));
-        backButton.addActionListener(e -> employeeFrame.dispose()); // Close window and go back
+        backButton.addActionListener(e -> employeeFrame.dispose());
 
         employeeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         employeeFrame.setVisible(true);
@@ -50,7 +49,6 @@ class EmployeeCard extends Card {  //Inheritance
     private void showRoomSelection(String floor) {
         String[] rooms = new String[]{};
 
-        // Define all rooms per floor
         if (floor.equals("Low Floor")) {
             rooms = new String[]{"Room 1", "Room 2"};
         } else if (floor.equals("Medium Floor")) {
@@ -59,7 +57,6 @@ class EmployeeCard extends Card {  //Inheritance
             rooms = new String[]{"Room 1", "Room 2"};
         }
 
-        // Show the room selection dialog with all rooms listed
         String room = (String) JOptionPane.showInputDialog(null,
                 "Select a room in " + floor,
                 "Room Selection",
@@ -95,11 +92,10 @@ class EmployeeCard extends Card {  //Inheritance
     }
 
     private boolean isRoomAccessible(String floor, String room) {
-        // Allow access to all rooms except "Meeting Room" and "Room 1" on the High Floor
         if (floor.equals("High Floor") && room.equals("Room 2")) {
-            return false; // Deny access to Room 1 on High Floor
+            return false;
         } else {
-            return true; // Allow all other rooms
+            return true;
         }
     }
 }

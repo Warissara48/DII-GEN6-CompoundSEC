@@ -21,10 +21,10 @@ public class AccessLog { //strategy pattern
 
     public void logEntry(String entry) {
         logs.add(entry);
-        System.out.println(entry); // แสดงผล Log ใน Console
+        System.out.println(entry);
     }
 
     public List<String> getLogs() {
-        return new ArrayList<>(logs); // ส่งสำเนาเพื่อป้องกันการแก้ไขโดยตรง
+        return new ArrayList<>(logs);
     }
 }

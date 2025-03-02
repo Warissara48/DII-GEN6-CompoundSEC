@@ -6,13 +6,12 @@ import java.time.format.DateTimeFormatter;
 abstract class Card {  // Abstract Class
     private String username;  // Data Hiding
     private String password;
-    private int failedAttempts = 0; // ตัวแปรนับจำนวนการใส่รหัสผิด
+    private int failedAttempts = 0;
 
-    // ใช้ instance เดียวกันตลอด
     private static AccessMonitor accessMonitor = new AccessMonitor();
 
     static {
-        accessMonitor.addObserver(new AdminNotifier()); // ให้ AdminNotifier ติดตามเหตุการณ์
+        accessMonitor.addObserver(new AdminNotifier());
     }
 
     public Card(String username, String password) {
@@ -26,7 +25,7 @@ abstract class Card {  // Abstract Class
 
     protected boolean authenticate(String password) {
         if (this.password.equals(password)) {
-            failedAttempts = 0; // รีเซ็ตเมื่อใส่รหัสถูก
+            failedAttempts = 0;
             return true;
         } else {
             failedAttempts++;
@@ -40,7 +39,7 @@ abstract class Card {  // Abstract Class
     }
 
     private void notifyAdmin(String message) {
-        accessMonitor.notifyObservers(message);  // ใช้ Instance เดียวกัน
+        accessMonitor.notifyObservers(message);
     }
 
     public abstract void accessSystem();
@@ -50,7 +49,7 @@ abstract class Card {  // Abstract Class
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String timestamp = now.format(formatter);
 
-        int colWidth1 = 20, colWidth2 = 40, colWidth3 = 19;
+        int colWidth1 = 20, colWidth2 = 50, colWidth3 = 19;
         String col1 = String.format("%-" + colWidth1 + "s", username);
         String col2 = String.format("%-" + colWidth2 + "s", action);
         String col3 = String.format("%-" + colWidth3 + "s", timestamp);
