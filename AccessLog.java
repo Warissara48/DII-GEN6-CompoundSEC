@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccessLog { //strategy pattern
+public class AccessLog { //Singleton Pattern
     private static volatile AccessLog instance;
     private List<String> logs = new ArrayList<>();
 
